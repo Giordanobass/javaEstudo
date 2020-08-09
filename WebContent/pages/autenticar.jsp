@@ -8,7 +8,8 @@
 </head>
 <body>
 	<h3>Autenticar usuário!</h3>
-	<form action="">
+	<form action="ServletAutenticacao" method="post">
+	<input readonly="readonly" type="hidden" id="url" value="<%= request.getParameter("url")%>">
 		<table>
 			<tr>
 			<td>Login: </td>
@@ -17,6 +18,10 @@
 			<tr>
 			<td>Senha: </td>
 			<td><input type="password" id="senha" name="senha"></td>
+			</tr>
+			<tr>
+			<td></td>
+			<td><input type="submit" id="logar" name="logar"></td>
 			</tr>
 		</table>
 	</form>

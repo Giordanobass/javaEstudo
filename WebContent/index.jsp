@@ -15,6 +15,9 @@
 		<tr>
 			<td><a href="pages/acessoAoSistema.jsp">Acessar Sistema</a>
 		</tr>
+		<tr>
+			<td><a href="pages/paginaPai.jsp">Load jQuery</a>
+		</tr>
 	</table>
 </body>
 </html>

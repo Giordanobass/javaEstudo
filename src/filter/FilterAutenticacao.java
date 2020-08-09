@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import user.UserLogado;
 
-@WebFilter(urlPatterns = "/pages/acessoAoSistema.jsp")
+@WebFilter(urlPatterns = {"/pages/*"})
 public class FilterAutenticacao implements Filter {
 
   @Override
@@ -30,23 +30,24 @@ public class FilterAutenticacao implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpSession session = req.getSession();
 
+    String urlParaAutenticar = req.getServletPath();
     // Retorna null caso não esteja logado
     UserLogado userLogado = (UserLogado) session.getAttribute("usuario");
 
     // Usuário não logado
-    if (userLogado == null) {
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp");
+    if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) {
+      RequestDispatcher dispatcher =
+          request.getRequestDispatcher("/pages/autenticar.jsp?url=" + urlParaAutenticar);
       dispatcher.forward(request, response);
       return;// para o processo para redirecinar
     }
 
     chain.doFilter(request, response);
-    System.out.println("Interceptando!");
 
   }
 
   @Override
-  public void init(FilterConfig arg0) throws ServletException {
+  public void init(FilterConfig filterConfig) throws ServletException {
     // executa algo quando iniciado
 
   }
