@@ -18,6 +18,9 @@
 		<tr>
 			<td><a href="pages/paginaPai.jsp">Load jQuery</a>
 		</tr>
+		<tr>
+			<td><a href="pages/progresbar.jsp">Progress Bar</a>
+		</tr>
 	</table>
 </body>
 </html>
