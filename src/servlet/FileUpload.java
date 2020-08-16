@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.codec.binary.Base64;
+import beans.Usuario;
 import dao.DaoUsuario;
 
 @WebServlet("/pages/fileUpload")
@@ -38,11 +39,15 @@ public class FileUpload extends HttpServlet {
 
       } else if (acao.equalsIgnoreCase("download")) {
         String iduser = request.getParameter("iduser");
-        String imagem = daoUsuario.buscarImagem(iduser);
+        Usuario imagem = new Usuario();
+        imagem = daoUsuario.buscarImagem(iduser);
         if (imagem != null) {
 
+          response.setHeader("Content-Disposition",
+              "attachment;filename=arquivo." + imagem.getTipofile());
+
           /* Pega somente imagem pura */
-          String imagemPura = imagem.split(",")[1];
+          String imagemPura = imagem.getImagem().split(",")[1];
 
           /* Converte base 64 em bytes */
           byte[] imageBytes = new Base64().decodeBase64(imagemPura);

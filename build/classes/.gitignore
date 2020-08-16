@@ -1,3 +1,7 @@
-/servlet/
 /beans/
+/connection/
 /dao/
+/excecoes/
+/filter/
+/servlet/
+/user/

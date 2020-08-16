@@ -5,12 +5,12 @@ package beans;
  */
 public class Usuario {
 
-  private Long id;
+  private String id;
   private String login;
   private String senha;
 
   private String imagem;
-
+  private String tipofile;
 
   public String getImagem() {
     return imagem;
@@ -20,11 +20,11 @@ public class Usuario {
     this.imagem = imagem;
   }
 
-  public Long getId() {
-    return this.id;
+  public String getId() {
+    return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -42,6 +42,14 @@ public class Usuario {
 
   public void setSenha(String senha) {
     this.senha = senha;
+  }
+
+  public String getTipofile() {
+    return tipofile;
+  }
+
+  public void setTipofile(String tipofile) {
+    this.tipofile = tipofile;
   }
 
 }
