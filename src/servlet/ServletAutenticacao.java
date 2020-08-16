@@ -53,11 +53,11 @@ public class ServletAutenticacao extends HttpServlet {
 
 
       // Redireciona para o sistema e autorizado
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/acessoAoSistema.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher(url);
       dispatcher.forward(request, response);
     } else {
       // Falha o login, e redireciona para login novamente
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/autenticar.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp");
       dispatcher.forward(request, response);
     }
 

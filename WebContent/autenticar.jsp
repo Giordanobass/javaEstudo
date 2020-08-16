@@ -9,7 +9,8 @@
 <body>
 	<h3>Autenticar usuário!</h3>
 	<form action="ServletAutenticacao" method="post">
-	<input readonly="readonly" type="hidden" id="url" value="<%= request.getParameter("url")%>">
+	<input type="hidden" 
+		id="url" name="url" value="<%= request.getParameter("url")%>">
 		<table>
 			<tr>
 			<td>Login: </td>

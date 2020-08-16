@@ -21,6 +21,9 @@
 		<tr>
 			<td><a href="pages/progresbar.jsp">Progress Bar</a>
 		</tr>
+		<tr>
+			<td><a href="pages/upload.jsp">Upload de imagem</a>
+		</tr>
 	</table>
 </body>
 </html>
