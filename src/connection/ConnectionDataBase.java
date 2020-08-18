@@ -3,9 +3,9 @@ package connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class SingleConnection {
+public class ConnectionDataBase {
 
-  private static String url = "jdbc:postgresql://localhost:5432/curso-jsp";
+  private static String url = "jdbc:postgresql://localhost:5432/curso-jsp?autoReconnect=true";
   private static String password = "postgres";
   private static String user = "postgres";
   private static Connection connection = null;
@@ -14,7 +14,7 @@ public class SingleConnection {
     conectar();
   }
 
-  public SingleConnection() {
+  public ConnectionDataBase() {
     conectar();
   }
 
@@ -24,15 +24,17 @@ public class SingleConnection {
       if (connection == null) {
         Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection(url, user, password);
-        connection.setAutoCommit(false);
-        System.out.println("Conectado com Sucesso!");
       }
 
     } catch (Exception e) {
-      e.printStackTrace();
+      throw new RuntimeException("Erro ao conectar com o banco de dados" + e.getMessage());
     }
   }
 
+  /**
+   * 
+   * @return Connection SQL
+   */
   public static Connection getConnection() {
     return connection;
   }

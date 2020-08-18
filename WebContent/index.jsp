@@ -24,6 +24,9 @@
 		<tr>
 			<td><a href="pages/upload.jsp">Upload de imagem</a>
 		</tr>
+		<tr>
+			<td><a href="pages/datatable.jsp">DataTable jQuery</a>
+		</tr>
 	</table>
 </body>
 </html>

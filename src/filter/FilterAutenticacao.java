@@ -1,6 +1,7 @@
 package filter;
 
 import java.io.IOException;
+import java.sql.Connection;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,10 +12,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import connection.ConnectionDataBase;
 import user.UserLogado;
 
 @WebFilter(urlPatterns = {"/pages/*"})
 public class FilterAutenticacao implements Filter {
+
+  private static Connection connection;
 
   @Override
   public void destroy() {
@@ -49,6 +53,8 @@ public class FilterAutenticacao implements Filter {
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     // executa algo quando iniciado
+
+    connection = ConnectionDataBase.getConnection();
 
   }
 

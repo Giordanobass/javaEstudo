@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import beans.Usuario;
-import connection.SingleConnection;
+import connection.ConnectionDataBase;
 
 /*
  * Classe DaoUsuario Classe Que Provê os Métodos e Validações Para Manipular Dados, e Acesso e
@@ -15,13 +15,13 @@ import connection.SingleConnection;
  */
 public class DaoUsuario {
 
-  private Connection connection;
+  private static Connection connection;
 
   /*
    * Construtor DaoUsuario() Recebe um Objeto connection da Classe SingleConnection
    */
   public DaoUsuario() {
-    connection = SingleConnection.getConnection();
+    connection = ConnectionDataBase.getConnection();
   }
 
 
