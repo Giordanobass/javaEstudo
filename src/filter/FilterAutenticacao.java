@@ -19,43 +19,47 @@ import user.UserLogado;
 public class FilterAutenticacao implements Filter {
 
   private static Connection connection;
+  private static Connection connectionBanco2;
+  private static Connection connectionBancoMysql;
 
+  // faz alguma coisa quando a aplica��o � derrubada
   @Override
   public void destroy() {
-    // Faz algo quando aplicacao é derrubada
 
   }
 
+  // intercepta todas as requisi��es
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    // Intercepta todas as requisições
 
     HttpServletRequest req = (HttpServletRequest) request;
     HttpSession session = req.getSession();
 
     String urlParaAutenticar = req.getServletPath();
-    // Retorna null caso não esteja logado
+    // retorna null caso n�o esteja logado
     UserLogado userLogado = (UserLogado) session.getAttribute("usuario");
 
-    // Usuário não logado
-    if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) {
+    if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usu�rio
+                                                                                                   // n�o
+                                                                                                   // logado
       RequestDispatcher dispatcher =
           request.getRequestDispatcher("/autenticar.jsp?url=" + urlParaAutenticar);
       dispatcher.forward(request, response);
-      return;// para o processo para redirecinar
+      return;// para o processo para redirecionar
     }
 
+    // executa as a��es do request e response
     chain.doFilter(request, response);
 
   }
 
+  // executa alguma coisa quando a aplica��o � iniciada
   @Override
-  public void init(FilterConfig filterConfig) throws ServletException {
-    // executa algo quando iniciado
-
+  public void init(FilterConfig arg0) throws ServletException {
     connection = ConnectionDataBase.getConnection();
-
+    // connectionBanco2 = ConnectionDataBaseBanco2.getConnection();
+    // connectionBancoMysql = ConnectionDataBaseMySQL.getConnection();
   }
 
 }

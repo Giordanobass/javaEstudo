@@ -3,6 +3,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/WebContent/WEB-INF/lib"/>
+        <wb-resource deploy-path="/" source-path="/WebContent/pages"/>
         <property name="context-root" value="javaEstudo"/>
         <property name="java-output-path" value="/javaEstudo/build/classes"/>
     </wb-module>

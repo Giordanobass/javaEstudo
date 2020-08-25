@@ -6,79 +6,79 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import beans.Usuario;
-import connection.ConnectionDataBase;
 
-/*
- * Classe DaoUsuario Classe Que Provê os Métodos e Validações Para Manipular Dados, e Acesso e
- * Manipulação do BD
- */
+import connection.ConnectionDataBase;
+import entidades.Usuario;
+
 public class DaoUsuario {
 
-  private static Connection connection;
+	private static Connection connection;
 
-  /*
-   * Construtor DaoUsuario() Recebe um Objeto connection da Classe SingleConnection
-   */
-  public DaoUsuario() {
-    connection = ConnectionDataBase.getConnection();
-  }
+	public DaoUsuario() {
+		connection = ConnectionDataBase.getConnection();
+	}
 
+	public List<Usuario> getUsuarios() throws Exception {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
 
-  public List<Usuario> getUsuarios() throws Exception {
-    List<Usuario> usuarios = new ArrayList<Usuario>();
+		String sql = "select * from usuario ";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		ResultSet resultSet = statement.executeQuery();
 
-    String sql = "SELECT * FROM usuario";
-    PreparedStatement statement = connection.prepareStatement(sql);
-    ResultSet resultSet = statement.executeQuery();
+		while (resultSet.next()) {
+			
+			Usuario usuario = new Usuario();
+			usuario.setId(resultSet.getString("id"));
+			usuario.setLogin(resultSet.getString("login"));
+			usuario.setSenha(resultSet.getString("senha"));
+			usuario.setImagem(resultSet.getString("imagem"));
 
-    while (resultSet.next()) {
-      Usuario usuario = new Usuario();
+			usuarios.add(usuario);
+		}
 
-      usuario.setId(resultSet.getString("id"));
-      usuario.setLogin(resultSet.getString("login"));
-      usuario.setSenha(resultSet.getString("senha"));
-      usuario.setImagem(resultSet.getString("imagem"));
+		return usuarios;
+	}
 
-      usuarios.add(usuario);
-    }
-    return usuarios;
-  }
+	public void gravarImagem(String imagem) throws SQLException {
+		
+		String tipoDados = imagem.split(",")[0].split(";")[0].split("/")[1];
 
-  public void gravarImagem(String imagem) throws SQLException {
+		String sql = "insert into usuario (imagem, tipofile) values (?, ?);";
+		
+		PreparedStatement insert = connection.prepareStatement(sql);
+		
+		insert.setString(1, imagem);
+		insert.setString(2, tipoDados);
+		insert.execute();
+		
+	}
 
-    String tipoDados = imagem.split(",")[0].split(";")[0].split("/")[1];
+	public Usuario buscaoImagem(String iduser) {
+		
+		try {
+		
+		String sql = "select * from usuario where id = " + iduser;
+		
+		PreparedStatement buscaImagem = connection.prepareStatement(sql);
+		ResultSet resultSet = buscaImagem.executeQuery();
+		
+		while(resultSet.next()){
+			
+			Usuario usuario = new Usuario();
+			usuario.setId(resultSet.getString("id"));
+			usuario.setLogin(resultSet.getString("login"));
+			usuario.setSenha(resultSet.getString("senha"));
+			usuario.setImagem(resultSet.getString("imagem"));
+			usuario.setTipofile(resultSet.getString("tipofile"));
+			
+			return usuario;
+		}
+		
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
-    String sql = "insert into usuario (imagem, tipofile) values (?,?);";
-    PreparedStatement insert = connection.prepareStatement(sql);
-
-    insert.setString(1, imagem);
-    insert.setString(2, tipoDados);
-    insert.execute();
-  }
-
-  public Usuario buscarImagem(String iduser) {
-    try {
-      String sql = "select * from usuario where id = " + iduser;
-
-      PreparedStatement buscaImagem = connection.prepareStatement(sql);
-      ResultSet resultSet = buscaImagem.executeQuery();
-
-      while (resultSet.next()) {
-
-        Usuario usuario = new Usuario();
-        usuario.setId(resultSet.getString("id"));
-        usuario.setLogin(resultSet.getString("login"));
-        usuario.setSenha(resultSet.getString("senha"));
-        usuario.setImagem(resultSet.getString("imagem"));
-        usuario.setTipofile(resultSet.getString("tipofile"));
-
-        return usuario;
-      }
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-
-    return null;
-  }
 }
